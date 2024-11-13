@@ -34,8 +34,7 @@ public class Product {
     @NotNull
     private float rating;
 
-    @Lob
-    @Column(columnDefinition = "BYTEA")
+    @Column(name = "image", columnDefinition = "BYTEA")
     private byte[] image;
 
     @ManyToOne
