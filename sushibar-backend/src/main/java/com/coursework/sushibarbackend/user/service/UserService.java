@@ -2,12 +2,13 @@ package com.coursework.sushibarbackend.user.service;
 
 import com.coursework.sushibarbackend.exception.CustomExceptions.InvalidRequestException;
 import com.coursework.sushibarbackend.exception.CustomExceptions.RegistrationFailureException;
+import com.coursework.sushibarbackend.product.service.ProductService;
+import com.coursework.sushibarbackend.user.model.dto.ApiResponse;
 import com.coursework.sushibarbackend.user.model.dto.SignUpDTO;
 import com.coursework.sushibarbackend.user.model.dto.UpdateSettingsDTO;
 import com.coursework.sushibarbackend.user.model.dto.UserUpdateDTO;
 import com.coursework.sushibarbackend.user.model.entity.User;
 import com.coursework.sushibarbackend.user.repository.UserRepository;
-import com.coursework.sushibarbackend.vk.model.dto.ApiResponse;
 import jakarta.transaction.Transactional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,10 +31,12 @@ import java.util.Optional;
 public class UserService implements UserDetailsService {
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private ProductService productService;
     @Lazy
     @Autowired
     private PasswordEncoder passwordEncoder;
-    private static final Logger logger = LoggerFactory.getLogger(AuthService.class);
+    private static final Logger logger = LoggerFactory.getLogger(UserService.class);
 
     public void registerUser(SignUpDTO signUpDTO) {
         User newUser = new User();
@@ -42,9 +45,6 @@ public class UserService implements UserDetailsService {
         }
         else if (userRepository.findByEmail(signUpDTO.getEmail()) != null){
             throw new RegistrationFailureException("Пользователь с такой почтой уже существует");
-        }
-        if (signUpDTO.getVkId() != 0) {
-            newUser.setVkId(signUpDTO.getVkId());
         }
         newUser.setEmail(signUpDTO.getEmail());
         newUser.setFirstName(signUpDTO.getFirstName());
@@ -113,18 +113,6 @@ public class UserService implements UserDetailsService {
             return apiResponse;
         }
         throw new InvalidRequestException("Неверный пароль");
-    }
-
-    public void addBonuses(User user, int bonus){
-        return;
-    }
-
-    public void writeOffBonuses(User user, int bonus){
-        return;
-    }
-
-    public Optional<User> getByVkId(int vkId) {
-        return userRepository.findByVkId(vkId);
     }
 
     public ApiResponse topUpDeposit(int amount) throws Exception {

@@ -1,5 +1,6 @@
 package com.coursework.sushibarbackend.user.model.dto;
 
+
 import com.coursework.sushibarbackend.user.model.entity.User;
 
 public class SignUpDTO {

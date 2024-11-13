@@ -1,13 +1,9 @@
 package com.coursework.sushibarbackend.product.service;
 
-import com.onlineshop.onlineshop.OLD.Models.DTO.Vk.ApiResponse;
-import com.onlineshop.onlineshop.OLD.Models.Database.Product.Category;
-import com.onlineshop.onlineshop.OLD.Models.Database.Product.Product;
-import com.onlineshop.onlineshop.OLD.Models.Database.Product.Review;
-import com.onlineshop.onlineshop.OLD.Repositories.CategoryRepository;
-import com.onlineshop.onlineshop.OLD.Repositories.ProductRepository;
-import com.onlineshop.onlineshop.OLD.Repositories.ReviewRepository;
-import com.onlineshop.onlineshop.exception.CustomExceptions.ResourceNotFoundException;
+import com.coursework.sushibarbackend.product.model.entity.Category;
+import com.coursework.sushibarbackend.product.model.entity.Product;
+import com.coursework.sushibarbackend.product.repository.CategoryRepository;
+import com.coursework.sushibarbackend.product.repository.ProductRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
@@ -18,8 +14,6 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 
@@ -30,57 +24,6 @@ public class ProductService {
     private ProductRepository productRepository;
     @Autowired
     private CategoryRepository categoryRepository;
-    @Autowired
-    private ReviewRepository reviewRepository;
-
-    public void updateProductRating(int productId) {
-        Product product = productRepository.findById(productId)
-                .orElseThrow(() -> new ResourceNotFoundException("Не найден товар: " + productId));
-
-        double averageRating = product.getReviewList().stream()
-                .mapToDouble(Review::getRating)
-                .average()
-                .orElse(0.0);
-        product.setRating((float) averageRating);
-        productRepository.save(product);
-    }
-
-    public ApiResponse createReview(Review review) {
-        LocalDateTime now = LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES);
-        review.setCreatedAt(now);
-        reviewRepository.save(review);
-        reviewRepository.flush();
-        updateProductRating(review.getProduct().getId());
-        return new ApiResponse(true, "Отзыв добавлен"){};
-    }
-
-    public ApiResponse deleteReview(int reviewId) throws ResourceNotFoundException {
-        Review review = reviewRepository.findById(reviewId)
-                .orElseThrow(() -> new ResourceNotFoundException("Не найден отзыв с id " + reviewId));
-        int productId = review.getProduct().getId();
-        reviewRepository.delete(review);
-        reviewRepository.flush();
-        updateProductRating(productId);
-        return new ApiResponse(true, "Отзыв удален"){};
-    }
-
-    public ApiResponse updateReview(Review updReview) throws ResourceNotFoundException {
-        Review review = reviewRepository.findById(updReview.getId())
-                .orElseThrow(() -> new ResourceNotFoundException("Не найден отзыв с id " + updReview.getId()));
-        LocalDateTime now = LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES);
-        review.setUpdatedAt(now);
-        review.setHeader(updReview.getHeader());
-        review.setContent(updReview.getContent());
-        review.setRating(updReview.getRating());
-        reviewRepository.save(review);
-        reviewRepository.flush();
-        updateProductRating(review.getProduct().getId());
-        return new ApiResponse(true, "Отзыв обновлен"){};
-    }
-
-    public List<Review> getReviewsByProductId(int productId) {
-        return reviewRepository.findByProductId(productId);
-    }
 
     public ProductService(ProductRepository productRepository) {
         this.productRepository = productRepository;
@@ -109,24 +52,7 @@ public class ProductService {
             List<Product> products = productRepository.findAll();
             for (int i = 0; i < products.size(); i++){
                 Product product = products.get(i);
-                String imagePath = "";
-                switch (product.getId()){
-                    case 1:
-                        imagePath = "images/Gainward GeForce RTX 4090 Phantom GS.png";
-                        break;
-                    case 2:
-                        imagePath = "images/DEEPCOOL LS720 WH.png";
-                        break;
-                    case 3:
-                        imagePath = "images/Intel Core i9-14900K.png";
-                        break;
-                    case 4:
-                        imagePath = "images/MSI Katana B12VFK-463XRU.png";
-                        break;
-                    case 5:
-                        imagePath = "images/Razer Viper Ultimate.png";
-                        break;
-                }
+                String imagePath = "images/sushi.png";
                 ClassPathResource imageResource = new ClassPathResource(imagePath);
                 Path path = imageResource.getFile().toPath();
                 byte[] imageBytes = Files.readAllBytes(path);

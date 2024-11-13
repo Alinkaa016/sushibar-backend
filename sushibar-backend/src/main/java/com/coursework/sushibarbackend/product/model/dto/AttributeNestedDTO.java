@@ -1,6 +1,6 @@
 package com.coursework.sushibarbackend.product.model.dto;
 
-import com.onlineshop.onlineshop.OLD.Models.Database.Product.ProductAttribute;
+import com.coursework.sushibarbackend.product.model.entity.ProductAttribute;
 
 public class AttributeNestedDTO {
     private int id;

@@ -1,9 +1,9 @@
 package com.coursework.sushibarbackend.product.model.entity;
 
-import com.onlineshop.onlineshop.OLD.Models.DTO.Product.ProductNestedDTO;
-import com.onlineshop.onlineshop.OLD.Models.DTO.Product.ProductViewDTO;
-import com.onlineshop.onlineshop.OLD.Models.Database.Order.OrderItem;
-import com.onlineshop.onlineshop.OLD.Models.Database.Store.StoreItem;
+import com.coursework.sushibarbackend.order.model.Database.OrderItem;
+import com.coursework.sushibarbackend.product.model.dto.ProductNestedDTO;
+import com.coursework.sushibarbackend.product.model.dto.ProductViewDTO;
+import com.coursework.sushibarbackend.store.model.entity.StoreItem;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 
@@ -54,35 +54,16 @@ public class Product {
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Review> reviewList = new ArrayList<>();
 
-    @ManyToMany(cascade = {CascadeType.ALL})
-    @JoinTable(
-            name = "product_discount",
-            joinColumns = {@JoinColumn(name = "product_id")},
-            inverseJoinColumns = {@JoinColumn(name = "discount_id")}
-    )
-    private List<Discount> discountList = new ArrayList<>();
-
     public Product() {
 
     }
 
     public Product(ProductViewDTO productViewDTO) {
         this.id = productViewDTO.getId();
-//        this.description = productViewDTO.getDescription();
-//        this.rating = productViewDTO.getRating();
-//        this.image = productViewDTO.getImage();
-//        this.storeList = productViewDTO.getStoreList().stream().map(StoreItem::new).toList();
-//        this.discountList = productViewDTO.getDiscountList().stream().map(Discount::new).toList();
-//        this.categoryList = productViewDTO.getCategoryList().stream().map(Category::new).toList();
     }
 
     public Product(ProductNestedDTO productNestedDTO) {
         this.id = productNestedDTO.getId();
-//        this.name = productNestedDTO.getName();
-//        this.price = productNestedDTO.getId();
-//        this.description = productNestedDTO.getDescription();
-//        this.rating = productNestedDTO.getRating();
-//        this.image = productNestedDTO.getImage();
     }
 
     public int getId() {
@@ -131,14 +112,6 @@ public class Product {
 
     public void setImage(byte[] image) {
         this.image = image;
-    }
-
-    public List<Discount> getDiscountList() {
-        return discountList;
-    }
-
-    public void setDiscountList(List<Discount> discountList) {
-        this.discountList = discountList;
     }
 
     public Category getCategory() {

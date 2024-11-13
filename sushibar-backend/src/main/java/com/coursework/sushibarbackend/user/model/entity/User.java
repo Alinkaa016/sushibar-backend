@@ -1,11 +1,11 @@
 package com.coursework.sushibarbackend.user.model.entity;
 
-import com.coursework.sushibarbackend.user.model.dto.SignUpDTO;
+import com.coursework.sushibarbackend.order.model.Database.Order;
+import com.coursework.sushibarbackend.shoppingCart.model.entity.ShoppingCart;
 import com.coursework.sushibarbackend.user.model.dto.SignUpDTO;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,8 +52,19 @@ public class User {
     @NotNull
     private boolean isChildModeEnabled = false;
 
+    @JoinColumn(name = "cart_id")
+    @OneToOne(cascade = CascadeType.ALL)
+    private ShoppingCart shoppingCart = new ShoppingCart();
+
+    @JoinColumn(name = "user_id")
+    @OneToMany()
+    private List<Order> orderList = new ArrayList<>();
+
+
     public User(){
+
     }
+
 
     public User(SignUpDTO signUpDTO) {
         this.firstName = signUpDTO.getFirstName();
@@ -73,6 +84,8 @@ public class User {
         this.email = user.getEmail();
         this.deposit = user.getDeposit();
         this.isChildModeEnabled = user.isChildModeEnabled();
+        this.shoppingCart = user.getShoppingCart();
+        this.orderList = user.getOrderList();
     }
 
     public int getId() {
@@ -153,5 +166,29 @@ public class User {
 
     public void setChildModeEnabled(boolean childModeEnabled) {
         isChildModeEnabled = childModeEnabled;
+    }
+
+    public ShoppingCart getShoppingCart() {
+        return shoppingCart;
+    }
+
+    public void setShoppingCart(ShoppingCart shoppingCart) {
+        this.shoppingCart = shoppingCart;
+    }
+
+    public List<Order> getOrderList() {
+        return orderList;
+    }
+
+    public void setOrderList(List<Order> orderList) {
+        this.orderList = orderList;
+    }
+
+    public void addToOrderList(Order order) {
+        this.orderList.add(order);
+    }
+
+    public void removeFromToOrderList(Order order) {
+        this.orderList.removeIf(item -> item.getId() == order.getId());
     }
 }

@@ -1,6 +1,6 @@
 package com.coursework.sushibarbackend.product.model.entity;
 
-import com.onlineshop.onlineshop.OLD.Models.DTO.Product.CategoryCompositeDTO;
+import com.coursework.sushibarbackend.product.model.dto.CategoryCompositeDTO;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 

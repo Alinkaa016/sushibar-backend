@@ -1,7 +1,8 @@
 package com.coursework.sushibarbackend.product.model.dto;
 
-import com.onlineshop.onlineshop.OLD.Models.DTO.Store.StoreItemNestedDTO;
-import com.onlineshop.onlineshop.OLD.Models.Database.Product.Product;
+
+import com.coursework.sushibarbackend.product.model.entity.Product;
+import com.coursework.sushibarbackend.store.model.dto.StoreItemNestedDTO;
 
 import java.util.List;
 
@@ -12,7 +13,6 @@ public class ProductViewDTO {
     private String description;
     private float rating;
     private byte[] image;
-    private List<DiscountNestedDTO> discountList;
     private CategoryCompositeDTO category;
     private List<StoreItemNestedDTO> storeList;
     private List<AttributeNestedDTO> attributeList;
@@ -28,7 +28,6 @@ public class ProductViewDTO {
         this.description = product.getDescription();
         this.rating = product.getRating();
         this.image = product.getImage();
-        this.discountList = product.getDiscountList().stream().map(DiscountNestedDTO::new).toList();
         this.storeList = product.getStoreList().stream().map(StoreItemNestedDTO::new).toList();
         this.category = new CategoryCompositeDTO(product.getCategory());
         this.attributeList = product.getProductAttributes().stream().map(AttributeNestedDTO::new).toList();
@@ -57,10 +56,6 @@ public class ProductViewDTO {
 
     public byte[] getImage() {
         return image;
-    }
-
-    public List<DiscountNestedDTO> getDiscountList() {
-        return discountList;
     }
 
     public List<StoreItemNestedDTO> getStoreList() {

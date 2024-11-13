@@ -1,6 +1,5 @@
 package com.coursework.sushibarbackend.user.model.dto;
 
-import com.coursework.sushibarbackend.vk.model.dto.ApiResponse;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class UserTokenDTO extends ApiResponse {

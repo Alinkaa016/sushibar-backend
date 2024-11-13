@@ -1,6 +1,7 @@
 package com.coursework.sushibarbackend.product.model.dto;
 
-import com.onlineshop.onlineshop.OLD.Models.Database.Product.Category;
+
+import com.coursework.sushibarbackend.product.model.entity.Category;
 
 public class CategoryCompositeDTO {
     private int id;

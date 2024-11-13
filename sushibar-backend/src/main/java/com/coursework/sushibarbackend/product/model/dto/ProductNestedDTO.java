@@ -1,6 +1,7 @@
 package com.coursework.sushibarbackend.product.model.dto;
 
-import com.onlineshop.onlineshop.OLD.Models.Database.Product.Product;
+
+import com.coursework.sushibarbackend.product.model.entity.Product;
 
 public class ProductNestedDTO {
     private int id;

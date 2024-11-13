@@ -1,7 +1,7 @@
 package com.coursework.sushibarbackend.exception;
 
 import com.coursework.sushibarbackend.exception.CustomExceptions.*;
-import com.coursework.sushibarbackend.vk.model.dto.ApiResponse;
+import com.coursework.sushibarbackend.user.model.dto.ApiResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

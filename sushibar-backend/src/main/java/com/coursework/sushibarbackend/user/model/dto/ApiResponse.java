@@ -1,4 +1,4 @@
-package com.coursework.sushibarbackend.vk.model.dto;
+package com.coursework.sushibarbackend.user.model.dto;
 
 public abstract class ApiResponse {
     private boolean success;

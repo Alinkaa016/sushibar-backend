@@ -1,5 +1,6 @@
 package com.coursework.sushibarbackend.user.model.dto;
 
+import com.coursework.sushibarbackend.order.model.dto.OrderViewDTO;
 import com.coursework.sushibarbackend.user.model.entity.User;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -9,11 +10,10 @@ public class UserViewDTO {
     private String firstName;
     private String lastName;
     private String patronymic;
-    private boolean isTwoFactorEnabled;
     private float deposit;
     @JsonProperty("isChildModeEnabled")
     private boolean isChildModeEnabled;
-    private boolean areNotificationsEnabled;
+    private List<OrderViewDTO> orderList;
 
     public UserViewDTO(){
 
@@ -25,6 +25,7 @@ public class UserViewDTO {
         this.patronymic = user.getPatronymic();
         this.deposit = user.getDeposit();
         this.isChildModeEnabled = user.isChildModeEnabled();
+        this.orderList = user.getOrderList().stream().map(OrderViewDTO::new).toList();
     }
 
 
@@ -44,15 +45,11 @@ public class UserViewDTO {
         return deposit;
     }
 
-    public boolean isTwoFactorEnabled() {
-        return isTwoFactorEnabled;
-    }
-
     public boolean isChildModeEnabled() {
         return isChildModeEnabled;
     }
 
-    public boolean isAreNotificationsEnabled() {
-        return areNotificationsEnabled;
+    public List<OrderViewDTO> getOrderList() {
+        return orderList;
     }
 }
