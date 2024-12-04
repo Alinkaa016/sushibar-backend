@@ -123,7 +123,7 @@ public class OrderService {
             }
         }
         else{
-            status = statusRepository.findById(5).orElseThrow();
+            status = statusRepository.findById(2).orElseThrow();
             order.setStatus(status);
         }
         orderRepository.save(order);
