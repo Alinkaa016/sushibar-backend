@@ -2,7 +2,10 @@ package com.coursework.sushibarbackend.user.service;
 
 import com.coursework.sushibarbackend.exception.CustomExceptions.InvalidRequestException;
 import com.coursework.sushibarbackend.exception.CustomExceptions.RegistrationFailureException;
+import com.coursework.sushibarbackend.product.model.entity.Product;
+import com.coursework.sushibarbackend.product.model.entity.Review;
 import com.coursework.sushibarbackend.product.service.ProductService;
+import com.coursework.sushibarbackend.shoppingCart.model.entity.ShoppingCart;
 import com.coursework.sushibarbackend.user.model.dto.ApiResponse;
 import com.coursework.sushibarbackend.user.model.dto.SignUpDTO;
 import com.coursework.sushibarbackend.user.model.dto.UpdateSettingsDTO;
@@ -131,5 +134,39 @@ public class UserService implements UserDetailsService {
 
     public List<User> getAll() {
         return userRepository.findAll();
+    }
+
+    public ShoppingCart getShopCartByUsername(String username) throws Exception {
+        Optional<User> findUser = userRepository.findByUsername(username);
+        User user = findUser.orElseThrow(() -> new Exception("Не удалось загрузить данные корзины"));
+        return user.getShoppingCart();
+    }
+
+    public ApiResponse containsInCart(int productId) throws Exception {
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = getByUsername(userDetails.getUsername());
+        boolean isContain = user.getShoppingCart().getCartItems().stream()
+                .anyMatch(item -> item.getProduct().getId() == productId);
+        if (isContain) {
+            return new ApiResponse(true, "Cart contain the product") {};
+        } else {
+            return new ApiResponse(false, "Cart not contain the product") {};
+        }
+    }
+
+    public ApiResponse checkingForReview(int productId) throws Exception {
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = getByUsername(userDetails.getUsername());
+        Product product = productService.getById(productId);
+        List<Review> reviews = product.getReviewList();
+        Optional<Review> optionalReview = reviews.stream()
+                .filter(item -> item.getUser().getId() == user.getId())
+                .findFirst();
+
+        if (optionalReview.isPresent()) {
+            return new ApiResponse(true, String.valueOf(optionalReview.get().getId())){};
+        } else {
+            return new ApiResponse(true, "0"){};
+        }
     }
 }

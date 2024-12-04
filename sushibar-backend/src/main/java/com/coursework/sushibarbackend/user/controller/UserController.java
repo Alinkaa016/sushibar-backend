@@ -1,6 +1,7 @@
 package com.coursework.sushibarbackend.user.controller;
 
 import com.coursework.sushibarbackend.product.service.ProductService;
+import com.coursework.sushibarbackend.shoppingCart.model.dto.ShoppingCartDTO;
 import com.coursework.sushibarbackend.user.model.dto.ApiResponse;
 import com.coursework.sushibarbackend.user.model.dto.UpdateSettingsDTO;
 import com.coursework.sushibarbackend.user.model.dto.UserUpdateDTO;
@@ -26,6 +27,16 @@ public class UserController {
         return ResponseEntity.ok(userService.changeUserData(userUpdateDTO));
     }
 
+    @GetMapping(path = "/containsInCart/{productId}")
+    public ApiResponse containsInCart(@PathVariable int productId) throws Exception {
+        return userService.containsInCart(productId);
+    }
+
+    @GetMapping(path = "/checkingForReview/{productId}")
+    public ApiResponse checkingForReview(@PathVariable int productId) throws Exception {
+        return userService.checkingForReview(productId);
+    }
+
     @PostMapping("/settingChildMode")
     public ResponseEntity<ApiResponse> settingChildMode(@RequestBody UpdateSettingsDTO updateSettingsDTO) throws Exception {
         return ResponseEntity.ok(userService.settingChildMode(updateSettingsDTO));
@@ -48,5 +59,11 @@ public class UserController {
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User user = userService.getByUsername(userDetails.getUsername());
         return new UserViewDTO(user);
+    }
+
+    @GetMapping(path = "/getShopCart")
+    public ShoppingCartDTO getShopCart() throws Exception {
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return new ShoppingCartDTO(userService.getShopCartByUsername(userDetails.getUsername()));
     }
 }
