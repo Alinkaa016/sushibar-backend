@@ -6,7 +6,7 @@ import com.coursework.sushibarbackend.shoppingCart.model.entity.CartItem;
 
 public class CartItemViewDTO {
     private ProductViewDTO product;
-        private int quantity;
+    private int quantity;
 
     public CartItemViewDTO(){
 

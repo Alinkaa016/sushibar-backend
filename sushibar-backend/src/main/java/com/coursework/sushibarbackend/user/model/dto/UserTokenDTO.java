@@ -18,6 +18,10 @@ public class UserTokenDTO extends ApiResponse {
         this.isVk = isVk;
     }
 
+    public UserTokenDTO() {
+        super();
+    }
+
     public String getToken() {
         return token;
     }

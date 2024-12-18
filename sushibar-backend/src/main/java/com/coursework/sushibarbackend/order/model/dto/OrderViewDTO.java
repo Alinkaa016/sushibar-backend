@@ -82,4 +82,44 @@ public class OrderViewDTO {
     public String getDeliveryAddress() {
         return deliveryAddress;
     }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setTotalAmount(float totalAmount) {
+        this.totalAmount = totalAmount;
+    }
+
+    public void setCreationDate(String creationDate) {
+        this.creationDate = creationDate;
+    }
+
+    public void setCompletionDate(String completionDate) {
+        this.completionDate = completionDate;
+    }
+
+    public void setDeliveryAddress(String deliveryAddress) {
+        this.deliveryAddress = deliveryAddress;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
+    public void setPaymentMethod(PaymentMethod paymentMethod) {
+        this.paymentMethod = paymentMethod;
+    }
+
+    public void setShippingMethod(ShippingMethod shippingMethod) {
+        this.shippingMethod = shippingMethod;
+    }
+
+    public void setOrderItems(List<OrderItemViewDTO> orderItems) {
+        this.orderItems = orderItems;
+    }
+
+    public void setStore(StoreNestedDTO store) {
+        this.store = store;
+    }
 }

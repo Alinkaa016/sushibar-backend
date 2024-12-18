@@ -8,7 +8,7 @@ import java.util.List;
 public class OrderCreateDTO {
     private float totalAmount;
     private String deliveryAddress;
-        private PaymentMethodCompositeDTO paymentMethod;
+    private PaymentMethodCompositeDTO paymentMethod;
     private ShippingMethodCompositeDTO shippingMethod;
     private List<OrderItemCreateDTO> orderItems;
     private StoreNestedDTO store;
@@ -39,5 +39,29 @@ public class OrderCreateDTO {
 
     public String getDeliveryAddress() {
         return deliveryAddress;
+    }
+
+    public void setTotalAmount(float totalAmount) {
+        this.totalAmount = totalAmount;
+    }
+
+    public void setDeliveryAddress(String deliveryAddress) {
+        this.deliveryAddress = deliveryAddress;
+    }
+
+    public void setPaymentMethod(PaymentMethodCompositeDTO paymentMethod) {
+        this.paymentMethod = paymentMethod;
+    }
+
+    public void setShippingMethod(ShippingMethodCompositeDTO shippingMethod) {
+        this.shippingMethod = shippingMethod;
+    }
+
+    public void setOrderItems(List<OrderItemCreateDTO> orderItems) {
+        this.orderItems = orderItems;
+    }
+
+    public void setStore(StoreNestedDTO store) {
+        this.store = store;
     }
 }

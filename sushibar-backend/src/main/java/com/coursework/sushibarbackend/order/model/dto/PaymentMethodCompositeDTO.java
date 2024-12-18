@@ -16,6 +16,11 @@ public class PaymentMethodCompositeDTO {
         this.description = paymentMethod.getDescription();
     }
 
+    public PaymentMethodCompositeDTO(int id, String description) {
+        this.id = id;
+        this.description = description;
+    }
+
     public int getId() {
         return id;
     }

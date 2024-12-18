@@ -9,6 +9,9 @@ public abstract class ApiResponse {
         this.message = message;
     }
 
+    public ApiResponse() {
+    }
+
     public boolean isSuccess() {
         return success;
     }

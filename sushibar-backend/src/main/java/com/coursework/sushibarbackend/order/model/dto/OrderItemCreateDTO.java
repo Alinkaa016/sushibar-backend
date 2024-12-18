@@ -17,4 +17,16 @@ public class OrderItemCreateDTO {
     public int getStoreId() {
         return storeId;
     }
+
+    public void setProductId(int productId) {
+        this.productId = productId;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    public void setStoreId(int storeId) {
+        this.storeId = storeId;
+    }
 }

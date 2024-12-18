@@ -24,4 +24,20 @@ public class UserUpdateDTO {
     public String getPassword() {
         return password;
     }
+
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
+    }
+
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
+    }
+
+    public void setPatronymic(String patronymic) {
+        this.patronymic = patronymic;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 }

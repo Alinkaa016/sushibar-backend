@@ -10,6 +10,11 @@ public class ShippingMethodCompositeDTO {
 
     }
 
+    public ShippingMethodCompositeDTO(int id, String description) {
+        this.id = id;
+        this.description = description;
+    }
+
     public ShippingMethodCompositeDTO(ShippingMethod shippingMethod) {
         this.id = shippingMethod.getId();
         this.description = shippingMethod.getDescription();

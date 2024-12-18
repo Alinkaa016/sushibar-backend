@@ -12,6 +12,11 @@ public class StoreNestedDTO {
 
     }
 
+    public StoreNestedDTO(int id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
     public StoreNestedDTO(Store store) {
         this.id = store.getId();
         this.name = store.getName();
