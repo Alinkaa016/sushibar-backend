@@ -116,7 +116,7 @@ public class OrderService {
         if (paymentMethod.getId() == 2) {
             if (user.getDeposit() >= orderCreateDTO.getTotalAmount()) {
                 user.setDeposit(user.getDeposit() - orderCreateDTO.getTotalAmount());
-                status = statusRepository.findById(5).orElseThrow();
+                status = statusRepository.findById(2).orElseThrow();
                 order.setStatus(status);
             } else {
                 throw new InsufficientFundsException("Пополните баланс для совершения заказа.");
